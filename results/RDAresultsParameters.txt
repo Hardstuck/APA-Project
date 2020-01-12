@@ -1,0 +1,1 @@
+Final gamma 0.001 Final lambda1
