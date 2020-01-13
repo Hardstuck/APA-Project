@@ -1,0 +1,12 @@
+library(e1071)
+library(caret)
+library(klaR)
+library(randomForest)
+library(nnet)
+
+source('plot.r')
+source('mainMLP.r')
+source('mainRF.r')
+source('mainNB.r')
+source('mainRBF.r')
+source('mainRDA.r')

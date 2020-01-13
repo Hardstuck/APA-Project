@@ -12,15 +12,17 @@ learn <- sample(1:N, round(2*N/3))
 nlearn <- length(learn)
 ntest <- N - nlearn
 sizes <- seq(2,16,by=2)
-decays <- 10^seq(-3, 0 , by = 0.1)
+decays <- 10^seq(-3, 0 , by = 0.5)
 trc <- trainControl(method = "repeatedcv", number = 10, repeats = 5, verboseIter = TRUE)
-modelSize <- train(winner~., data = data, set=learn, method = 'nnet', maxit = 500, trace = FALSE, tuneGrid = expand.grid(.size=sizes ,.decay = 0.5), trControl = trc)
+#modelSize <- train(winner~., data = data, subset=learn, method = 'nnet', maxit = 500, trace = FALSE, tuneGrid = expand.grid(.size=sizes ,.decay = 0.5), trControl = trc)
 
 # save(modelSize, file = "../models/MLPsizeTraningMLP.regul")
 # 
 # nsize <- modelSize$bestTune
 
-modelDecay <- train(winner~., data = data, set=learn, method = 'nnet', maxit = 500, trace = FALSE, tuneGrid = expand.grid(.size=14 ,.decay = decays), trControl = trc)
+modelDecay <- train(winner~., data = data, subset=learn, method = 'nnet', maxit = 500, trace = FALSE, tuneGrid = expand.grid(.size=14 ,.decay = decays), trControl = trc)
+
+# bestDecay <- modelSize$bestTune
 
 # #resulted model in model.10x10CVF.regul
 # 
