@@ -1,13 +1,3 @@
-library(e1071)
-library(caret)
-
-source("plot.r")
-load("../data/LOLdatanormalized.Rdata")
-data <- data.normalized
- 
-set.seed(5)
-N <- nrow(data) 
-learn <- sample(1:N, round(2*N/3))
 load("../models/training/modelRBF.regul")
 
 bestC <- model$bestTune[,2]
@@ -33,8 +23,9 @@ RBF.errorTest <- 1 - sum(diag(RBF.tab))/sum(RBF.tab)
 print('RBF model testing error is:')
 print(RBF.errorTest)
 
-RBF.cm <- confusionMatrix(data = data[-learn, ]$winner, reference = RBF.pred)
-draw_confusion_matrix(RBF.cm)
-dev.copy(png, '../images/RBFplot.png')
-dev.off()
-
+# Uncomment if want to draw the confusion Matri
+# RBF.cm <- confusionMatrix(data = data[-learn, ]$winner, reference = RBF.pred)
+# draw_confusion_matrix(RBF.cm)
+# dev.copy(png, '../images/RBFplot.png')
+# dev.off()
+# 

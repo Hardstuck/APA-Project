@@ -1,14 +1,3 @@
-library(e1071)
-library(caret)
-
-source("plot.r")
-load("../data/LOLdatanormalized.Rdata")
-data <- data.normalized
- 
-set.seed(5)
-N <- nrow(data) 
-learn <- sample(1:N, round(2*N/3))
-
 NB.model <- naiveBayes(winner ~ ., data = data, subset = learn, lapace = 1)
 
 NB.predActual <- predict(NB.model, data[learn,])
@@ -31,7 +20,8 @@ NB.errorTest <- 1 - sum(diag(NB.tab))/sum(NB.tab)
 print('Naive Bayes model testing error is:')
 print(NB.errorTest)
 
-NB.cm <- confusionMatrix(data = data[-learn, ]$winner, reference = NB.pred)
-draw_confusion_matrix(NB.cm)
-dev.copy(png, '../images/NBplot.png')
-dev.off()
+# Uncomment if want to draw the confusion Matri
+# NB.cm <- confusionMatrix(data = data[-learn, ]$winner, reference = NB.pred)
+# draw_confusion_matrix(NB.cm)
+# dev.copy(png, '../images/NBplot.png')
+# dev.off()

@@ -1,15 +1,3 @@
-library(e1071)
-library(caret)
-library(randomForest)
-
-source("plot.r")
-load("../data/LOLdatanormalized.Rdata")
-data <- data.normalized
- 
-set.seed(5)
-N <- nrow(data) 
-learn <- sample(1:N, round(2*N/3))
-
 bestnTree <- 256
 
 RF.model <- randomForest(winner ~ ., data = data, subset = learn, ntree = bestnTree, proximity = FALSE)
@@ -32,7 +20,8 @@ RF.errorTest <- 1 - sum(diag(RF.tab))/sum(RF.tab)
 print('Random forest model testing error is:')
 print(RF.errorTest)
 
-RF.cm <- confusionMatrix(data = data[-learn, ]$winner, reference = RF.pred)
-draw_confusion_matrix(RF.cm)
-dev.copy(png, '../images/RFplot.png')
-dev.off()
+# Uncomment if want to draw the confusion Matrix
+# RF.cm <- confusionMatrix(data = data[-learn, ]$winner, reference = RF.pred)
+# draw_confusion_matrix(RF.cm)
+# dev.copy(png, '../images/RFplot.png')
+# dev.off()
